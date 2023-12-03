@@ -5,18 +5,11 @@ metadata:
     workload.user.cattle.io/workloadselector: apps.deployment-hw2-survey
   name: survey
   namespace: argocd1
-  resourceVersion: '1514644'
-  uid: 61e5b7df-4dea-41db-bca6-319099a20e52
 spec:
   replicas: 5
   selector:
     matchLabels:
       workload.user.cattle.io/workloadselector: apps.deployment-hw2-survey
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
   template:
     metadata:
       creationTimestamp: null
@@ -33,18 +26,6 @@ spec:
               name: survey
               protocol: TCP
           resources: {}
-          securityContext:
-            allowPrivilegeEscalation: false
-            privileged: false
-            readOnlyRootFilesystem: false
-            runAsNonRoot: false
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
 status:
   availableReplicas: 5
   observedGeneration: 20
