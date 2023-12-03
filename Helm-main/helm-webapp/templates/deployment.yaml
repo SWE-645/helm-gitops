@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    workload.user.cattle.io/workloadselector: apps.deployment-hw2-survey
+  name: survey
+  namespace: argocd1
+  resourceVersion: '1514644'
+  uid: 61e5b7df-4dea-41db-bca6-319099a20e52
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: apps.deployment-hw2-survey
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        workload.user.cattle.io/workloadselector: apps.deployment-hw2-survey
+      namespace: argocd1
+    spec:
+      containers:
+        - image: njogani/swe645_hw2:202311270456
+          imagePullPolicy: Always
+          name: container-0
+          ports:
+            - containerPort: 8080
+              name: survey
+              protocol: TCP
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 5
+  observedGeneration: 20
+  readyReplicas: 5
+  replicas: 5
+  updatedReplicas: 5
